@@ -10,7 +10,7 @@ import org.example.config.Configuration;
 
 public class RestClient {
 
-    public RequestSpecification basicRequestSpecification() {
+    protected RequestSpecification basicRequestSpecification() {
         return RestAssured.given()
                 .contentType(ContentType.JSON)
                 .baseUri(Configuration.CONFIG.baseUrl())
