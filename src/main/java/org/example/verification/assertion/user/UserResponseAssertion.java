@@ -6,27 +6,25 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.example.mapper.ResponseMapper;
-import org.example.model.SingleUserResponse;
+import org.example.model.UserResponse;
 import org.example.utils.JsonConverter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserResponseAssertion {
 
-    private SingleUserResponse singleUserResponse;
+    private UserResponse userResponse;
 
     public static UserResponseAssertion assertThat(Response response) {
-        SingleUserResponse userResponse = ResponseMapper.mapToSingleUserResponse(response);
-        return new UserResponseAssertion(userResponse);
+        return new UserResponseAssertion(ResponseMapper.mapToUserResponse(response));
     }
 
-    public void isEqualTo(SingleUserResponse expectedResponse) {
+    public void isEqualTo(UserResponse expectedResponse) {
         Allure.step("Response is equal to: expected response ", () -> {
-            Assertions.assertThat(singleUserResponse)
+            Assertions.assertThat(userResponse)
                     .isEqualTo(expectedResponse);
 
-            Allure.addAttachment("Expected response body:", JsonConverter.serializePojo(expectedResponse));
+            Allure.addAttachment("Expected response body", JsonConverter.serializePojo(expectedResponse));
         });
-
     }
 
 }

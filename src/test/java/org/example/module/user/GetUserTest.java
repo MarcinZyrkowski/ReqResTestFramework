@@ -1,35 +1,26 @@
 package org.example.module.user;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.example.BaseTest;
-import org.example.model.SingleUserResponse;
-import org.example.model.Support;
-import org.example.model.User;
+import org.example.model.UserResponse;
 import org.example.verification.assertion.HttpAssertion;
 import org.example.verification.assertion.user.UserResponseAssertion;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
+@Epic("Epic: User")
+@Feature("Get User Feature")
+@DisplayName("Get User Test")
 public class GetUserTest extends BaseTest {
 
-    @Test
-    @DisplayName("Get single user")
-    public void getSingleUser() {
+    @DisplayName("Get single user:")
+    @ParameterizedTest(name = "for user with ID: 2")
+    @MethodSource("org.example.dataprovider.UserResponseProvider#provideUserResponseForUserWithId2")
+    public void getSingleUser(UserResponse expectedResponse) {
         int userId = 2;
-
-        SingleUserResponse expectedResponse = SingleUserResponse.builder()
-                .data(User.builder()
-                        .id(userId)
-                        .email("janet.weaver@reqres.in")
-                        .firstName("Janet")
-                        .lastName("Weaver")
-                        .avatar("https://reqres.in/img/faces/2-image.jpg")
-                        .build())
-                .support(Support.builder()
-                        .url("https://reqres.in/#support-heading")
-                        .text("To keep ReqRes free, contributions towards server costs are appreciated!")
-                        .build())
-                .build();
 
         Response response = reqresClient.getUserById(userId);
         HttpAssertion.assertThat(response)
