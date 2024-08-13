@@ -7,11 +7,13 @@ import org.example.model.Support;
 import org.example.model.User;
 import org.example.verification.assertion.HttpAssertion;
 import org.example.verification.assertion.user.UserResponseAssertion;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class GetUserTest extends BaseTest {
 
     @Test
+    @DisplayName("Get single user")
     public void getSingleUser() {
         int userId = 2;
 
