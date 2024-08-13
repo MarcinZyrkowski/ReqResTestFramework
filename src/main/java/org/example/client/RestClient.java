@@ -8,7 +8,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.example.config.Configuration;
 
-public class RestClient {
+public abstract class RestClient {
 
     protected RequestSpecification basicRequestSpecification() {
         return RestAssured.given()
